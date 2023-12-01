@@ -11,6 +11,7 @@ public interface MemberMapper {
 	
 	//로그인
 	Member login(Member member);
+	
 	//회원가입
 	int insertMember(Member member);
 	
