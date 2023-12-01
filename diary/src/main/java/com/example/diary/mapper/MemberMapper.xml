@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.diary.mapper.MemberMapper">
+	
+	<!-- 로그인 -->
+	<select id="login" parameterType="com.example.diary.vo.Member" resultType="com.example.diary.vo.Member" >
+		SELECT
+			member_id memberId,
+			member_no memberNo,
+			member_level memberLevel
+		FROM member
+		WHERE member_id = #{memberId}
+		AND member_pw = PASSWORD(#{memberPw})
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="insertMember" parameterType="com.example.diary.vo.Member">
+		INSERT INTO member(
+			member_id,
+			member_pw
+		) VALUES(
+			#{memberId},
+			PASSWORD(#{memberPw})
+		)
+	</insert>
+	
+	<!-- Level check -->
+	<select id="checkMemberLevel" parameterType="com.example.diary.vo.Member" resultType="int" >
+		SELECT
+			member_level memberLevel
+		FROM member
+		WHERE member_id = #{memberId}
+	</select>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="deleteMember" parameterType="com.example.diary.vo.Member">
+		DELETE 
+		FROM member
+		WHERE member_id = #{memberId}
+		AND member_pw = PASSWORD(#{memberPw})
+	</delete>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="updateMember" parameterType="java.util.Map">
+		UPDATE member SET
+			member_pw = PASSWORD(#{updateMemberPw})
+		WHERE member_id = #{memberId}
+		AND member_pw = PASSWORD(#{memberPw})
+	</update>
+	
+</mapper>
