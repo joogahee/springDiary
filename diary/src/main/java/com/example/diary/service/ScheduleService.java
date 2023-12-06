@@ -1,7 +1,10 @@
 package com.example.diary.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.ResultMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +17,62 @@ import com.example.diary.vo.Schedule;
 public class ScheduleService {
 	@Autowired private ScheduleMapper scheduleMapper;
 	
+	public List<Schedule> getScheduleListByWord(String word){
+		List<Schedule> list = null;
+			list = scheduleMapper.selectScheduleListByWord(word);
+		return list;
+	}
+	
 	public List<Schedule> getScheduleListByMonth(String memberId, int year) {
 		
 		return scheduleMapper.selectScheduleListByMonth(null);
+	}
+	
+	
+	public Map<String, Object> getScheduleListByDate(int currentPage, String year, String month, String day) {
+		// 월범위
+		Integer minYear = scheduleMapper.selectScheduleDateMinYear();
+		Integer maxYear = scheduleMapper.selectScheduleDateMaxYear();
+		Map<String, Integer> maxMinMap = new HashMap<>();
+		maxMinMap.put("minYear", minYear);
+		maxMinMap.put("maxYear", maxYear);
+		
+		
+		// 스케줄 리스트
+		Map<String, Object> paramMap = new HashMap<>();
+		if(year.equals("")) {
+			paramMap.put("year", null);
+		} else {
+			paramMap.put("year", Integer.parseInt(year));
+		}
+		// if..else
+		if(month.equals("")) {
+			paramMap.put("month", null);
+		} else {
+			paramMap.put("month", Integer.parseInt(month));
+		}
+		// if..else
+		if(day.equals("")) {
+			paramMap.put("day", null);
+		} else {
+			paramMap.put("day", Integer.parseInt(day));
+		}
+		
+		paramMap.put("maxMinMap", maxMinMap);
+		
+		// 페이징에 필요한 변수
+		int rowPerPage = 10; //한페이지에 표시할 공지사항 수 
+		int beginRow = (currentPage - 1) * rowPerPage;
+		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("beginRow", beginRow);
+		
+		List<Schedule> list = scheduleMapper.selectScheduleListByDate(paramMap);
+		
+		// 반환 맵
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("maxMinMap", maxMinMap); // 년도 최소, 최대값
+		resultMap.put("list", list); // 조건결과 리스트
+		resultMap.put("rowPerPage", rowPerPage); // 조건결과 리스트
+		return resultMap;
 	}
 }
