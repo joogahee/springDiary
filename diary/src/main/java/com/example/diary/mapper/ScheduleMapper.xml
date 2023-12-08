@@ -52,5 +52,29 @@
 		</where>
 		 LIMIT #{beginRow}, #{rowPerPage}
 	</select>
+	
+	<select id="selectScheduleByMonth" parameterType="Map" resultType="java.util.Map">
+		SELECT
+    		DAY(schedule_date) AS scheduleDay,
+    		COUNT(*) AS cnt,
+    		GROUP_CONCAT(SUBSTR(schedule_memo, 1, 5) SEPARATOR ',') AS memo
+		FROM schedule
+		WHERE member_id = #{memberId}
+    	AND YEAR(schedule_date) = #{targetYear}
+    	AND MONTH(schedule_date) = #{targetMonth} + 1
+		GROUP BY schedule_date
+		ORDER BY schedule_date ASC;
+	</select>
+	
+	<select id="selectScheduleOneListByDay" parameterType="Map" resultType="com.example.diary.vo.Schedule">
+		SELECT
+  			schedule_date scheduleDate,
+   			schedule_memo scheduleMemo,
+   			schedule_emoji scheduleEmoji,
+   			schedule_no scheduleNo,
+   			createdate
+		FROM schedule
+		WHERE schedule_date = CONCAT(#{year},'-',#{month},'-',#{day})
+	</select>
 
 </mapper>

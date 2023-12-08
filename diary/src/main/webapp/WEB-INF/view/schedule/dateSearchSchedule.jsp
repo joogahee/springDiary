@@ -10,6 +10,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div id="menu">
+    	<c:import url="/WEB-INF/view/inc/menu.jsp" />
+	</div>
+	
 	<h1>날짜별 일정 조회</h1>
 	<div>
 	<form action="${pageContext.servletContext.contextPath}/schedule/scheduleByDate" method="get">

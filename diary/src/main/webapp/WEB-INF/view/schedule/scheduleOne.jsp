@@ -11,20 +11,25 @@
 	<div id="menu">
     	<c:import url="/WEB-INF/view/inc/menu.jsp" />
 	</div>
-	<h1>로그인</h1>
-	<form action="${pageContext.servletContext.contextPath}/member/login" method="post">
+	<div>
 		<table border="1">
 			<tr>
-				<td>ID</td>
-				<td><input type="text" name="memberId"></td>
+				<th>번호</th>
+				<th>이모티콘</th>
+				<th>일정</th>
+				<th>작성일</th>
 			</tr>
-			<tr>
-				<td>PW</td>
-				<td><input type="password" name="memberPw"></td>
-			</tr>
+			
+			<c:forEach var="schedule" items="${list}">
+				<tr>
+					<td>${schedule.scheduleNo }</td>
+					<td>${schedule.scheduleEmoji }</td>
+					<td>${schedule.scheduleMemo }</td>
+					<td>${schedule.createdate }</td>
+				</tr>
+			</c:forEach>
 		</table>
-		<button type="submit">로그인</button>
-	</form>
-	  <a href="${pageContext.request.contextPath}/member/addMember">회원가입</a>
+	
+	</div>
 </body>
 </html>

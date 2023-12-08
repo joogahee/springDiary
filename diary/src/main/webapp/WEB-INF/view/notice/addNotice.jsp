@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div id="menu">
+    	<c:import url="/WEB-INF/view/inc/menu.jsp" />
+	</div>
 	<h1>공지 추가</h1>
 		<form method="post" action="${pageContext.servletContext.contextPath}/notice/addNotice">
 			<table border="1">

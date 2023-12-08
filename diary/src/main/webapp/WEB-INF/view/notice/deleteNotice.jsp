@@ -8,6 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div id="menu">
+    	<c:import url="/WEB-INF/view/inc/menu.jsp" />
+	</div>
 	<h1>공지 삭제</h1>
 	<p>삭제하려면 비밀번호를 입력하세요.</p>
 	<form method="post" action="${pageContext.servletContext.contextPath}/notice/deleteNotice">

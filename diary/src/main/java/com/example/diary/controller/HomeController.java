@@ -1,6 +1,5 @@
 package com.example.diary.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.diary.service.CalendarService;
 import com.example.diary.service.HomeService;
+import com.example.diary.service.ScheduleService;
+import com.example.diary.vo.Member;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -20,7 +21,7 @@ import jakarta.servlet.http.HttpSession;
 public class HomeController {
 	@Autowired HomeService homeService;
 	@Autowired CalendarService calendarService;
-	//@Autowired ScheduleService scheduleService;
+	@Autowired ScheduleService scheduleService;
 
 	@GetMapping("/member/home")
 	public String noticeList(Model model,HttpSession session,
@@ -32,24 +33,29 @@ public class HomeController {
 			return "member/login";
 		}
 		
+		Member loginMember =(Member)session.getAttribute("loginMember");
 
 		//service로 보내줄 Map 세팅
 		Map<String, Object> map = new HashMap<>();
 		map.put("currentPage", currentPage);
+		map.put("targetYear", targetYear);
+		map.put("targetMonth", targetMonth);
+		map.put("memberId",loginMember.getMemberId());
 		
 		//service 호출
 		Map<String, Object> noticeMap = new HashMap<>();
 		noticeMap = homeService.homeService(map, session);
 		Map<String,Object> calendarMap = calendarService.getCalendar(targetYear,targetMonth);
-		//List<Schedule> list = scheduleService.getScheduleListByMonth(null, currentPage);
+		List<Map<String,Object>> list = scheduleService.getScheduleListByMonth(map);
 		
-		//noticemap 디버강
+		//디버강
 		System.out.println(noticeMap + " <-- noticeMap");
+		System.out.println(list.size() + " <-- list.size");
 		
 		//model add
-		model.addAttribute("noticeMap", noticeMap);
+		model.addAttribute("noticeMap", noticeMap);	
 		model.addAttribute("calendarMap", calendarMap);
-		//model.addAttribute("list", list);
+		model.addAttribute("list", list);
 		
 		// 포워딩
 		return "member/home";

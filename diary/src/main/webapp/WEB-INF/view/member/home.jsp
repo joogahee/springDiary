@@ -9,12 +9,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Home</h1>
+	<div id="menu">
+    	<c:import url="/WEB-INF/view/inc/menu.jsp" />
+	</div>
 	<p>
-		${noticeMap.loginMember.memberId}님 정보관리 
-		<a href="${pageContext.servletContext.contextPath}/member/logout">로그아웃</a>
-		<a href="${pageContext.servletContext.contextPath}/member/deleteMember">회원탈퇴</a>
-		<a href="${pageContext.servletContext.contextPath}/member/updateMember">비밀번호변경</a>
+		${noticeMap.loginMember.memberId}님 환영합니다 
 	</p>
 	
 	<h2>공지사항</h2>
@@ -58,11 +57,20 @@
     	</h2>
     </div>
     <div>
-    	<a href="">이전달</a>
-    	<a href="">이전달</a>
+    	<a href="${pageContext.servletContext.contextPath}/member/home?targetMonth=${calendarMap.targetMonth-1}&targetYear=${calendarMap.targetYear}">이전달</a>
+    	<a href="${pageContext.servletContext.contextPath}/member/home?targetMonth=${calendarMap.targetMonth+2}&targetYear=${calendarMap.targetYear}">다음달</a>
     </div>
     <div>
     	<table border="1">
+    		<tr>
+		        <th>일</th>
+		        <th>월</th>
+		        <th>화</th>
+		        <th>수</th>
+		        <th>목</th>
+		        <th>금</th>
+		        <th>토</th>
+			</tr>
       <tr>
          <c:forEach var="i" begin="1" end="${calendarMap.totalTd}">
             <c:set var="d" value="${i-calendarMap.beginBlank}"/>
@@ -70,10 +78,17 @@
                <c:if test="${d < 1 || d> calendarMap.lastDate}">
                   &nbsp;
                </c:if>
-               <c:if test="${!(d < 1 || d> calendarMap.lastDate)}">
-                  <a href="">${d}</a>
-               </c:if>
-               
+               <c:if test="${!(d < 1 || d > calendarMap.lastDate)}">
+                    <a href="${pageContext.servletContext.contextPath}/schedule/scheduleOne?year=${calendarMap.targetYear}&month=${calendarMap.targetMonth+1}&day=${d}">
+                        ${d}
+                    </a>
+                        <c:forEach var="schedule" items="${list}">
+                            <c:if test="${schedule.scheduleDay == d}">
+                                <p>${schedule.memo}</p>
+                                <p>${schedule.cnt}개의 일정</p>
+                            </c:if>
+                        </c:forEach>
+                </c:if>
                <!-- 한 행 당 7열 -->
                <c:if test="${i<calendarMap.totalTd && i%7==0}">
                   </tr><tr>

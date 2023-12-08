@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ScheduleController {
 	@Autowired private ScheduleService scheduleService;
 	
+	//날짜로 schedule검색
 	@GetMapping("/schedule/scheduleByDate")
 	public String scheduleListByDate(@RequestParam(defaultValue = "1") int currentPage,
 										@RequestParam(defaultValue = "") String year,
@@ -38,6 +39,7 @@ public class ScheduleController {
 		
 	}
 	
+	//단어로 schedule검색
 	@GetMapping("/schedule/word")
 	public String scheduleListByWord(Model model,
 										@RequestParam(name="word", defaultValue = "") String word) {
@@ -46,4 +48,16 @@ public class ScheduleController {
 		log.debug(word);
 		return "schedule/schedule";
 	}
+	
+	@GetMapping("schedule/scheduleOne")
+	public String scheduleOne(Model model,
+								@RequestParam int year,
+								@RequestParam int month,
+								@RequestParam int day) {
+		List<Schedule> list = scheduleService.getScheduleOne(year,month,day);
+		
+		model.addAttribute("list", list);
+		return "schedule/scheduleOne";
+	}
+
 }

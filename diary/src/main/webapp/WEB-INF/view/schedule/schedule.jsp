@@ -11,6 +11,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div id="menu">
+    	<c:import url="/WEB-INF/view/inc/menu.jsp" />
+	</div>
 	<table border="1">
 		<tr>
 			<th>no</th>

@@ -8,6 +8,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
+	<div id="menu">
+    	<c:import url="/WEB-INF/view/inc/menu.jsp" />
+	</div>
 <h1> 공지수정 </h1>
    <form method="post" action="${pageContext.servletContext.contextPath}/notice/updateNotice" class="updateNotice">
       <table border="1">

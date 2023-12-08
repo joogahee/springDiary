@@ -8,6 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div id="menu">
+    	<c:import url="/WEB-INF/view/inc/menu.jsp" />
+	</div>
 	<h1>공지사항</h1>
 	<p>page: ${currentPage}</p>
 	<table border="1">

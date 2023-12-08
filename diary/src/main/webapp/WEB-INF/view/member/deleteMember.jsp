@@ -8,6 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div id="menu">
+    	<c:import url="/WEB-INF/view/inc/menu.jsp" />
+	</div>
 	<h1>회원탈퇴</h1>
 		<form method="post" action="${pageContext.servletContext.contextPath}/member/deleteMember">
 			<table border="1">

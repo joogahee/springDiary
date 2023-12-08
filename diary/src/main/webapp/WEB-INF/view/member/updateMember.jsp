@@ -8,6 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div id="menu">
+    	<c:import url="/WEB-INF/view/inc/menu.jsp" />
+	</div>
 	<h1>비밀번호 변경</h1>
 		<form method="post" action="${pageContext.servletContext.contextPath}/member/updateMember">
 			<table border="1">

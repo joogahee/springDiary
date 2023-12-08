@@ -1,10 +1,10 @@
 package com.example.diary.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.ResultMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +17,7 @@ import com.example.diary.vo.Schedule;
 public class ScheduleService {
 	@Autowired private ScheduleMapper scheduleMapper;
 	
+	//schedule을 단어로 검색
 	public List<Schedule> getScheduleListByWord(String word){
 		List<Schedule> list = null;
 			list = scheduleMapper.selectScheduleListByWord(word);
@@ -28,7 +29,7 @@ public class ScheduleService {
 		return scheduleMapper.selectScheduleListByMonth(null);
 	}
 	
-	
+	//schedule을 날짜로 검색
 	public Map<String, Object> getScheduleListByDate(int currentPage, String year, String month, String day) {
 		// 월범위
 		Integer minYear = scheduleMapper.selectScheduleDateMinYear();
@@ -74,5 +75,29 @@ public class ScheduleService {
 		resultMap.put("list", list); // 조건결과 리스트
 		resultMap.put("rowPerPage", rowPerPage); // 조건결과 리스트
 		return resultMap;
+	}
+	
+	//schedule 캘린더에 출력
+	public List<Map<String,Object>> getScheduleListByMonth(Map<String,Object> map) {
+		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+		
+		list = scheduleMapper.selectScheduleByMonth(map);
+		
+		System.out.println("schedule 캘린더에 출력 map size"+map.size());
+		
+		return list;
+	}
+	
+	//scheduleOne 출력
+	public List<Schedule> getScheduleOne(int year, int month, int day) {
+		Map<String,Object> map = new HashMap<>();
+		
+		map.put("year", year);
+		map.put("month", month);
+		map.put("day", day);
+		
+		List<Schedule> list = scheduleMapper.selectScheduleOneListByDay(map);
+		
+		return list;
 	}
 }
