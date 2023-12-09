@@ -45,7 +45,6 @@ public class ScheduleController {
 										@RequestParam(name="word", defaultValue = "") String word) {
 		List<Schedule> list = scheduleService.getScheduleListByWord(word);
 		model.addAttribute("list",list);
-		log.debug(word);
 		return "schedule/schedule";
 	}
 	
