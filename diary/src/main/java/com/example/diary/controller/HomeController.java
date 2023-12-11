@@ -46,7 +46,12 @@ public class HomeController {
 		Map<String, Object> noticeMap = new HashMap<>();
 		noticeMap = homeService.homeService(map, session);
 		Map<String,Object> calendarMap = calendarService.getCalendar(targetYear,targetMonth);
-		List<Map<String,Object>> list = scheduleService.getScheduleListByMonth(map);
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("targetYear", calendarMap.get("targetYear"));
+		paramMap.put("targetMonth", calendarMap.get("targetMonth"));
+		paramMap.put("memberId", loginMember.getMemberId());
+		List<Map<String,Object>> list = scheduleService.getScheduleListByMonthCnt(paramMap);
 		
 		//디버강
 		System.out.println(noticeMap + " <-- noticeMap");

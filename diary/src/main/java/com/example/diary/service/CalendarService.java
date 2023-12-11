@@ -24,9 +24,11 @@ public class CalendarService {
 			
 		}
 		
+
 		//1월에서 -1, 12 +1 이 되면 CalendarAPI에서 자동으로 년과 월이 변경된다
 		targetYear = firstDay.get(Calendar.YEAR);
 		targetMonth = firstDay.get(Calendar.MONTH);
+		
 		
 		//활성화 되어 있는 가장큰 필드값
 		//lastDate는 API를 통해서 구한다

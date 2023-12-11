@@ -24,7 +24,7 @@ public class ScheduleService {
 		return list;
 	}
 	
-	public List<Schedule> getScheduleListByMonth(String memberId, int year) {
+	public List<Schedule> getScheduleListByMonth(Map<String,Object> paramMap) {
 		
 		return scheduleMapper.selectScheduleListByMonth(null);
 	}
@@ -78,10 +78,10 @@ public class ScheduleService {
 	}
 	
 	//schedule 캘린더에 출력
-	public List<Map<String,Object>> getScheduleListByMonth(Map<String,Object> map) {
+	public List<Map<String,Object>> getScheduleListByMonthCnt(Map<String,Object> map) {
 		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
 		
-		list = scheduleMapper.selectScheduleByMonth(map);
+		list = scheduleMapper.selectScheduleByMonthCnt(map);
 		
 		System.out.println("schedule 캘린더에 출력 map size"+map.size());
 		

@@ -53,11 +53,11 @@
 		 LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
-	<select id="selectScheduleByMonth" parameterType="Map" resultType="java.util.Map">
+	<select id="selectScheduleByMonthCnt" parameterType="Map" resultType="java.util.Map">
 		SELECT
     		DAY(schedule_date) AS scheduleDay,
     		COUNT(*) AS cnt,
-    		GROUP_CONCAT(SUBSTR(schedule_memo, 1, 5) SEPARATOR ',') AS memo
+    		GROUP_CONCAT(schedule_emoji) AS scheduleEmoji
 		FROM schedule
 		WHERE member_id = #{memberId}
     	AND YEAR(schedule_date) = #{targetYear}

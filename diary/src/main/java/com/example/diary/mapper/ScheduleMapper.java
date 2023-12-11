@@ -16,7 +16,7 @@ public interface ScheduleMapper {
 	List<Schedule> selectScheduleListByDate(Map<String, Object> map);
 	
 	//schedule 캘린더에 출력
-	List<Map<String,Object>> selectScheduleByMonth(Map<String, Object> map);
+	List<Map<String,Object>> selectScheduleByMonthCnt(Map<String, Object> map);
 	
 	//일 별 schedule 상세보기 출력
 	List<Schedule> selectScheduleOneListByDay(Map<String, Object> map);

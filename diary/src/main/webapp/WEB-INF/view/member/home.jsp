@@ -58,7 +58,7 @@
     </div>
     <div>
     	<a href="${pageContext.servletContext.contextPath}/member/home?targetMonth=${calendarMap.targetMonth-1}&targetYear=${calendarMap.targetYear}">이전달</a>
-    	<a href="${pageContext.servletContext.contextPath}/member/home?targetMonth=${calendarMap.targetMonth+2}&targetYear=${calendarMap.targetYear}">다음달</a>
+    	<a href="${pageContext.servletContext.contextPath}/member/home?targetMonth=${calendarMap.targetMonth+1}&targetYear=${calendarMap.targetYear}">다음달</a>
     </div>
     <div>
     	<table border="1">
@@ -84,8 +84,8 @@
                     </a>
                         <c:forEach var="schedule" items="${list}">
                             <c:if test="${schedule.scheduleDay == d}">
-                                <p>${schedule.memo}</p>
                                 <p>${schedule.cnt}개의 일정</p>
+                                <p>${schedule.scheduleEmoji}</p>
                             </c:if>
                         </c:forEach>
                 </c:if>
