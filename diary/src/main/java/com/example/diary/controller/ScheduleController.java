@@ -1,5 +1,6 @@
 package com.example.diary.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,6 @@ import com.example.diary.vo.Member;
 import com.example.diary.vo.Schedule;
 
 import jakarta.servlet.http.HttpSession;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 public class ScheduleController {
@@ -112,6 +112,61 @@ public class ScheduleController {
 		
 		return "redirect:/schedule/scheduleOne?year="+year+"&&month="+month+"&&day="+day;
 	
+	}
+	
+	//schedule 수정 폼
+	@GetMapping("schedule/updateSchedule")
+	public String updateSchedule(HttpSession session, Model model,
+									@RequestParam int scheduleNo,
+									@RequestParam int year,
+									@RequestParam int month,
+									@RequestParam int day) {
+		// 로그인 후에만 접근 가능
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:/member/login";
+		}
+		
+		//서비스 호출
+		Schedule schedule = scheduleService.getScheduleOne(scheduleNo);
+		
+		//model에 담아서 jsp에 출력
+		model.addAttribute("schedule", schedule);
+		model.addAttribute("year", year);
+		model.addAttribute("month", month);
+		model.addAttribute("day", day);
+		
+		return "schedule/updateSchedule";
+	}
+	
+	//schedule 수정 액션
+	@PostMapping("schedule/updateSchedule")
+	public String updateSchedule(HttpSession session,
+									@RequestParam int scheduleNo,
+									@RequestParam String scheduleMemo,
+									@RequestParam String scheduleDate,
+									@RequestParam String scheduleEmoji,
+									@RequestParam String password,
+									@RequestParam int year,
+									@RequestParam int month,
+									@RequestParam int day) {
+		// 로그인 후에만 접근 가능
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:/member/login";
+		}
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		//서비스에 보내줄 map세팅
+		map.put("scheduleNo", scheduleNo);
+		map.put("scheduleMemo", scheduleMemo);
+		map.put("scheduleDate", scheduleDate);
+		map.put("scheduleEmoji", scheduleEmoji);
+		map.put("password", password);
+		
+		//서비스 호출
+		scheduleService.updateSchedule(map, session);
+		
+		return "redirect:/schedule/scheduleOne?year="+year+"&&month="+month+"&&day="+day;
 	}
 	
 

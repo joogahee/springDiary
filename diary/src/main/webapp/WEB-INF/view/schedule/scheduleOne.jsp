@@ -21,14 +21,18 @@
 				<th>이모티콘</th>
 				<th>일정</th>
 				<th>작성일</th>
+				<th>수정</th>
+				<th>삭제</th>
 			</tr>
 			
 			<c:forEach var="schedule" items="${list}">
 				<tr>
 					<td>${schedule.scheduleNo }</td>
 					<td>${schedule.scheduleEmoji }</td>
-					<td>${schedule.scheduleMemo }</td>
+					<td><textarea rows="3" cols="80" name="scheduleMemo" id="scheduleMemo" readonly="readonly">${schedule.scheduleMemo }</textarea></td>
 					<td>${schedule.createdate }</td>
+					<td><a href="${pageContext.request.contextPath}/schedule/updateSchedule?scheduleNo=${schedule.scheduleNo}&year=${year}&month=${month}&day=${day}">수정</a></td>
+					<td><a href="${pageContext.request.contextPath}/schedule/deleteSchedule?scheduleNo=${schedule.scheduleNo}">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</table>

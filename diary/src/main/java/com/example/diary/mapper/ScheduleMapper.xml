@@ -89,7 +89,28 @@
 			#{scheduleMemo},
 			#{scheduleEmoji}
 		)
-	
 	</insert>
-
+	
+	<update id="updateSchedule" parameterType="com.example.diary.vo.Schedule">
+		UPDATE schedule SET
+			schedule_memo = #{scheduleMemo},
+			schedule_emoji = #{scheduleEmoji}
+		WHERE schedule_no = #{scheduleNo}
+	</update>
+	
+	<delete id="deleteSchedule" parameterType="com.example.diary.vo.Schedule">
+		DELETE 
+		FROM schedule
+		WHERE schedule_no = #{scheduleNo}
+	</delete>
+	
+	<select id="selectScheduleOne" parameterType="int" resultType="com.example.diary.vo.Schedule">
+		SELECT 
+			schedule_no scheduleNo,
+			schedule_date scheduleDate,
+			schedule_memo scheduleMemo,
+			schedule_emoji scheduleEmoji
+		FROM schedule
+		WHERE schedule_no = #{scheduleNo}
+	</select>
 </mapper>

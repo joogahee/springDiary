@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.diary.vo.Member;
 import com.example.diary.vo.Schedule;
 
 @Mapper
@@ -31,5 +32,12 @@ public interface ScheduleMapper {
 	//schedule 추가
 	int insertSchedule(Schedule schedule);
 	
+	//schedule 수정
+	int updateSchedule(Schedule schedule);
 	
+	//schedule 삭제
+	int deleteSchedule(Schedule schedule);
+	
+	//schedule 상세보기(수정,삭제를위해)
+	Schedule selectScheduleOne(int ScheduleNo);
 }

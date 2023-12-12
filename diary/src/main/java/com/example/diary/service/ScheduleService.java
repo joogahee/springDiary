@@ -9,13 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.diary.mapper.MemberMapper;
 import com.example.diary.mapper.ScheduleMapper;
+import com.example.diary.vo.Member;
 import com.example.diary.vo.Schedule;
+
+import jakarta.servlet.http.HttpSession;
 
 @Service
 @Transactional
 public class ScheduleService {
 	@Autowired private ScheduleMapper scheduleMapper;
+	@Autowired private MemberMapper memberMapper;
+	
 	
 	//schedule을 단어로 검색
 	public List<Schedule> getScheduleListByWord(String word){
@@ -111,5 +117,56 @@ public class ScheduleService {
 		}else {
 			System.out.println("일정 추가 실패");			
 		}
+	}
+	
+	//schedule 수정,삭제를 위한 schedule 상세보기
+	public Schedule getScheduleOne(int shceduleNo) {
+		//mapper 호출
+		Schedule schedule = scheduleMapper.selectScheduleOne(shceduleNo);
+		
+		//controller로 보내기
+		return schedule;
+		
+	}
+	
+	//schedule 수정
+	public int updateSchedule(Map<String,Object> map, HttpSession session) {
+		
+		int row = 0;
+		
+		//로그인 된 MemberId와 MemberPw 확인 
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		Member member = new Member();
+		member.setMemberId(loginMember.getMemberId());
+		member.setMemberPw((String)map.get("password"));
+		
+		System.out.println(member+"<--member");
+		
+		//수정 mapper에 보내줄 schedule 객체 세팅
+		Schedule schedule = new Schedule();
+		schedule.setScheduleNo((int)map.get("scheduleNo"));
+		schedule.setCreatedate((String)map.get("scheduleDate"));
+		schedule.setScheduleMemo((String)map.get("scheduleMemo"));
+		schedule.setScheduleEmoji((String)map.get("scheduleEmoji"));
+		
+		//수정를 위해 비밀번호 확인
+		Member resultMember = memberMapper.login(member);
+		
+		if(resultMember == null) {
+			throw new RuntimeException("비밀번호가 틀렸습니다");
+			
+		}else if(resultMember != null) {
+			//삭제 mapper 호출
+			row = scheduleMapper.updateSchedule(schedule);
+		}
+		
+		if(row == 1) {
+			System.out.println("일정 수정 성공");
+		}else {
+			System.out.println("일정 수정 실패");			
+		}
+		
+		return row;
+		
 	}
 }
