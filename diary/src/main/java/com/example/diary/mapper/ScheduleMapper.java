@@ -28,5 +28,8 @@ public interface ScheduleMapper {
 	Integer selectScheduleDateMaxYear();
 	Integer selectScheduleDateMinYear();
 	
+	//schedule 추가
+	int insertSchedule(Schedule schedule);
+	
 	
 }

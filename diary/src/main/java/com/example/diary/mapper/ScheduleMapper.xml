@@ -76,5 +76,20 @@
 		FROM schedule
 		WHERE schedule_date = CONCAT(#{year},'-',#{month},'-',#{day})
 	</select>
+	
+	<insert id="insertSchedule" parameterType="com.example.diary.vo.Schedule">
+		INSERT INTO schedule(
+			member_id,
+			schedule_date,
+			schedule_memo,
+			schedule_emoji
+		) VALUES(
+			#{memberId},
+			#{scheduleDate},
+			#{scheduleMemo},
+			#{scheduleEmoji}
+		)
+	
+	</insert>
 
 </mapper>

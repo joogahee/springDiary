@@ -100,4 +100,16 @@ public class ScheduleService {
 		
 		return list;
 	}
+	
+	//schedule 추가
+	public void addSchedule(Schedule schedule) {
+		
+		int row = scheduleMapper.insertSchedule(schedule);
+		
+		if(row == 1) {
+			System.out.println("일정 추가 성공");
+		}else {
+			System.out.println("일정 추가 실패");			
+		}
+	}
 }

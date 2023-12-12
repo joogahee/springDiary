@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Schedule {
 	private int scheduleNo;
-	private String memeberId;
+	private String memberId;
 	private String scheduleDate;
 	private String scheduleMemo;
 	private String createdate;
