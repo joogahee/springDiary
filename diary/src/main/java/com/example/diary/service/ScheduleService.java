@@ -156,7 +156,7 @@ public class ScheduleService {
 			throw new RuntimeException("비밀번호가 틀렸습니다");
 			
 		}else if(resultMember != null) {
-			//삭제 mapper 호출
+			//수정 mapper 호출
 			row = scheduleMapper.updateSchedule(schedule);
 		}
 		
@@ -164,6 +164,44 @@ public class ScheduleService {
 			System.out.println("일정 수정 성공");
 		}else {
 			System.out.println("일정 수정 실패");			
+		}
+		
+		return row;
+		
+	}
+	
+	//schedule 삭제
+	public int deleteSchedule(Map<String,Object> map, HttpSession session) {
+		
+		int row = 0;
+		
+		//로그인 된 MemberId와 MemberPw 확인 
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		Member member = new Member();
+		member.setMemberId(loginMember.getMemberId());
+		member.setMemberPw((String)map.get("password"));
+		
+		System.out.println(member+"<--member");
+		
+		//삭제 mapper에 보내줄 schedule 객체 세팅
+		Schedule schedule = new Schedule();
+		schedule.setScheduleNo((int)map.get("scheduleNo"));
+		
+		//삭제를 위해 비밀번호 확인
+		Member resultMember = memberMapper.login(member);
+		
+		if(resultMember == null) {
+			throw new RuntimeException("비밀번호가 틀렸습니다");
+			
+		}else if(resultMember != null) {
+			//삭제 mapper 호출
+			row = scheduleMapper.deleteSchedule(schedule);
+		}
+		
+		if(row == 1) {
+			System.out.println("일정 삭제 성공");
+		}else {
+			System.out.println("일정 삭제 실패");			
 		}
 		
 		return row;

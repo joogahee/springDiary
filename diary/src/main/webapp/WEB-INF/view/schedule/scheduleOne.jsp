@@ -15,6 +15,12 @@
 		<h2>${year}년 ${month}월 ${day}일</h2>
 	</div>
 	<div>
+		<p>일정 검색
+		<a href="${pageContext.request.contextPath}/schedule/scheduleByDate?year=${year}&month=${month}&day=${day}">날짜</a>
+		<a href="${pageContext.request.contextPath}/schedule/word">단어</a>	
+		</p>	
+	</div>
+	<div>
 		<table border="1">
 			<tr>
 				<th>번호</th>
@@ -32,7 +38,7 @@
 					<td><textarea rows="3" cols="80" name="scheduleMemo" id="scheduleMemo" readonly="readonly">${schedule.scheduleMemo }</textarea></td>
 					<td>${schedule.createdate }</td>
 					<td><a href="${pageContext.request.contextPath}/schedule/updateSchedule?scheduleNo=${schedule.scheduleNo}&year=${year}&month=${month}&day=${day}">수정</a></td>
-					<td><a href="${pageContext.request.contextPath}/schedule/deleteSchedule?scheduleNo=${schedule.scheduleNo}">삭제</a></td>
+					<td><a href="${pageContext.request.contextPath}/schedule/deleteSchedule?scheduleNo=${schedule.scheduleNo}&year=${year}&month=${month}&day=${day}">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</table>

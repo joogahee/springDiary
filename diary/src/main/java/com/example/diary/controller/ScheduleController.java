@@ -169,5 +169,54 @@ public class ScheduleController {
 		return "redirect:/schedule/scheduleOne?year="+year+"&&month="+month+"&&day="+day;
 	}
 	
+	//schedule 삭제 폼
+	@GetMapping("schedule/deleteSchedule")
+	public String deleteSchedule(HttpSession session, Model model,
+									@RequestParam int scheduleNo,
+									@RequestParam int year,
+									@RequestParam int month,
+									@RequestParam int day) {
+		// 로그인 후에만 접근 가능
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:/member/login";
+		}
+		
+		//서비스 호출
+		Schedule schedule = scheduleService.getScheduleOne(scheduleNo);
+		
+		//model에 담아서 jsp에 출력
+		model.addAttribute("schedule", schedule);
+		model.addAttribute("year", year);
+		model.addAttribute("month", month);
+		model.addAttribute("day", day);
+		
+		return "schedule/deleteSchedule";
+	}
+	
+	//schedule 삭제 액션
+	@PostMapping("schedule/deleteSchedule")
+	public String deleteSchedule(HttpSession session,
+									@RequestParam int scheduleNo,
+									@RequestParam String password,
+									@RequestParam int year,
+									@RequestParam int month,
+									@RequestParam int day) {
+		// 로그인 후에만 접근 가능
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:/member/login";
+		}
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		//서비스에 보내줄 map세팅
+		map.put("scheduleNo", scheduleNo);
+		map.put("password", password);
+		
+		//서비스 호출
+		scheduleService.deleteSchedule(map, session);
+		
+		return "redirect:/schedule/scheduleOne?year="+year+"&&month="+month+"&&day="+day;
+	}
+	
 
 }
