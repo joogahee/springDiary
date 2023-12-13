@@ -23,7 +23,9 @@ public interface ScheduleMapper {
 	List<Schedule> selectScheduleOneListByDay(Map<String, Object> map);
 	
 	//schedule 검색
-	List<Schedule> selectScheduleListByWord(String word);
+	List<Map<String,Object>> selectScheduleListByWord(Map<String, Object> map);
+	//페이징을 위해 검색된 일정이 총 몇개인지 
+	int selectScheduleListByWordCnt(Map<String, Object> map);
 	
 	//schedule 최대 연도 , 최소 연도
 	Integer selectScheduleDateMaxYear();

@@ -16,7 +16,7 @@
 	<!-- 페이징을 위해 전체 공지 수  -->
 	<select id="selectTotalNotice"
 				resultType="int">
-				SELECT count(*)
+				SELECT count(notice_no)
 				FROM notice
 	</select>
 </mapper>

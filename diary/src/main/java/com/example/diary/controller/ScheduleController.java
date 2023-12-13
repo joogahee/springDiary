@@ -49,13 +49,23 @@ public class ScheduleController {
 	//단어로 schedule검색
 	@GetMapping("/schedule/word")
 	public String scheduleListByWord(Model model, HttpSession session,
+										@RequestParam(defaultValue = "1") int currentPage,
 										@RequestParam(name="word", defaultValue = "") String word) {
 		// 로그인 후에만 접근 가능
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/member/login";
-		}	
-		List<Schedule> list = scheduleService.getScheduleListByWord(word);
-		model.addAttribute("list",list);
+		}
+		
+		List<Map<String,Object>> resultList = scheduleService.getScheduleListByWord(word,currentPage);
+
+		// 서비스에서 전달받은 map에서 lastPage를 가져옴
+		int lastPage = (int) resultList.get(0).get("lastPage");
+
+		//view에 출력될 객체 model에 add
+		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("list",resultList);
+		model.addAttribute("word",word);
+		
 		return "schedule/schedule";
 	}
 	

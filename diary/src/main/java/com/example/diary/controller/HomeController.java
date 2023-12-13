@@ -34,7 +34,9 @@ public class HomeController {
 		}
 		
 		Member loginMember =(Member)session.getAttribute("loginMember");
-
+		
+		System.out.println(loginMember + "<-- 로그인한 멤버");
+		
 		//service로 보내줄 Map 세팅
 		Map<String, Object> map = new HashMap<>();
 		map.put("currentPage", currentPage);

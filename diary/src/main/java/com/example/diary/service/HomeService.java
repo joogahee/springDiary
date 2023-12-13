@@ -25,7 +25,16 @@ public class HomeService {
 		// 페이징에 필요한 변수
 		int rowPerPage = 2; //한페이지에 표시할 공지사항 수 
 		int beginRow = ((int)(map.get("currentPage")) - 1) * rowPerPage;
-		int lastPage = homeMapper.selectTotalNotice();
+		int noticeCount = homeMapper.selectTotalNotice();
+		int lastPage = noticeCount/rowPerPage;
+		
+		if(noticeCount%rowPerPage != 0) {
+			lastPage = lastPage + 1;
+		}
+		
+		//lastPage 디버깅
+		System.out.println(lastPage + "<--lastPage");
+		System.out.println(noticeCount + "<--noticeCount");
 		
 		// memberLevel (관리자만 공지 추가할 수 있게)
 		Member loginMember = (Member)session.getAttribute("loginMember");
@@ -40,6 +49,9 @@ public class HomeService {
 		List<Notice> noticeList = homeMapper.selectNoticeList(paramMap);
 		
 		Map<String, Object> map2 = new HashMap<>();
+		
+		// map에 lastPage 추가
+		map2.put("lastPage", lastPage);
 		
 		// map에 loginMember 추가
 		map2.put("loginMember", loginMember);

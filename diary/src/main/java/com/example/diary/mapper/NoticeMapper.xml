@@ -49,4 +49,5 @@
 				WHERE
 					notice_no = #{noticeNo}
 	</update>
+
 </mapper>

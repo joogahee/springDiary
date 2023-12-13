@@ -13,6 +13,5 @@ public interface NoticeMapper {
 	// 삭제
 	int deleteNotice(Notice notice);
 	// 수정
-	int updateNotice(Notice notice);
-	
+	int updateNotice(Notice notice);	
 }

@@ -2,20 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.diary.mapper.ScheduleMapper">
 	
-	<select id="selectScheduleListByWord" parameterType="String" resultType="com.example.diary.vo.Schedule">
+	<select id="selectScheduleListByWord" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT 
 			schedule_no scheduleNo,
-			schedule_memo scheduleMemo
-		FROM
-		schedule
+			schedule_memo scheduleMemo,
+			schedule_date scheduleDate,
+			schedule_emoji scheduleEmoji
+		FROM schedule
 		<where>
 			<if test="word != null and word != ''"><!-- test안에는 java변수이다 (표현식을 가지고 있음), 태그안에서는 #{}안해도 됨 -->
 				schedule_memo LIKE CONCAT('%',#{word},'%')
 			</if>
 		</where>
 		<!-- where안에 if문을 여러개 가질 수 있음 하나라도 true라면 where절이 자동으로 생김 -->
-		LIMIT 0,10
+		LIMIT #{beginRow},#{rowPerPage}
 	</select>
+	
+	<!-- 페이징을 위해 검색된 일정이 총 몇개인지 알아볼 Mapper -->
+	<select id="selectScheduleListByWordCnt" parameterType="java.util.Map" resultType="int">
+		SELECT 
+			COUNT(schedule_no) cnt
+		FROM schedule
+		<where>
+			<if test="word != null and word != ''"><!-- test안에는 java변수이다 (표현식을 가지고 있음), 태그안에서는 #{}안해도 됨 -->
+				schedule_memo LIKE CONCAT('%',#{word},'%')
+			</if>
+		</where>
+	</select>
+	
 	
 	<!-- view -->
 	<select id="selectScheduleDateMaxYear" resultType="Integer">

@@ -38,15 +38,16 @@
 	<p>페이지: ${noticeMap.currentPage}</p>
 	
 		<!-- login한 member의 level이 1일때만 공지 추가 가능  -->
-		<c:if test="${memberLevel ==1}">
+		<c:if test="${noticeMap.loginMember.memberLevel ==1}">
 			<a href="${pageContext.servletContext.contextPath}/notice/addNotice">공지추가</a>
 		</c:if>
 	<!-- 페이징 -->
 	<div>
-        <c:if test="${noticeMap.currentPage > 1}">
-		<a href="${pageContext.request.contextPath}/member/home?currentPage=${noticeMap.currentPage - 1}">이전</a>
-		</c:if>
-		<a href="${pageContext.request.contextPath}/member/home?currentPage=${noticeMap.currentPage + 1}">다음</a>
+		<a href="${pageContext.request.contextPath}/member/home?currentPage=1">처음</a>
+		<c:forEach var="c" begin="1" end="${noticeMap.lastPage}">
+			<a href="${pageContext.request.contextPath}/member/home?currentPage=${c}">${c}</a>
+		</c:forEach>
+		<a href="${pageContext.request.contextPath}/member/home?currentPage=${noticeMap.lastPage}">마지막</a>
     </div>
     <!-- 캘린더 -->
 

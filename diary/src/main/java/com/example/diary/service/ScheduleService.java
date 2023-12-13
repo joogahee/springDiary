@@ -24,10 +24,36 @@ public class ScheduleService {
 	
 	
 	//schedule을 단어로 검색
-	public List<Schedule> getScheduleListByWord(String word){
-		List<Schedule> list = null;
-			list = scheduleMapper.selectScheduleListByWord(word);
-		return list;
+	public List<Map<String,Object>> getScheduleListByWord(String word, int currentPage){
+		// 페이징에 필요한 변수
+		int rowPerPage = 10; //한페이지에 표시할 공지사항 수 
+		int beginRow = ((int)(currentPage - 1) * rowPerPage);
+		
+		Map<String,Object> map = new HashMap<>();
+		//mapper에 보내줄 map 세팅
+		map.put("word", word);
+		map.put("rowPerPage", rowPerPage);
+		map.put("beginRow", beginRow);
+		
+		//Mapper의 결과
+		List<Map<String,Object>> resultList = new ArrayList<>();
+		resultList = scheduleMapper.selectScheduleListByWord(map);
+		
+		int scheduleCount = scheduleMapper.selectScheduleListByWordCnt(map);
+		int lastPage = scheduleCount/rowPerPage;
+		
+		if(scheduleCount%rowPerPage != 0) {
+			lastPage = lastPage + 1;
+		}
+		
+		//lastPage 디버깅
+		System.out.println(lastPage + "<--lastPage");
+		System.out.println(scheduleCount + "<--scheduleCount");
+		
+	    // lastPage를 map에 넣어서 반환
+	    resultList.get(0).put("lastPage", lastPage);
+
+		return resultList;
 	}
 	
 	public List<Schedule> getScheduleListByMonth(Map<String,Object> paramMap) {

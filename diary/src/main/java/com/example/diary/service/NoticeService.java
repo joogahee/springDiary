@@ -33,10 +33,10 @@ public class NoticeService {
 		int row = this.noticeMapper.insertNotice(notice);
 		
 		//추가확인 디버깅
-		if(row == 1) {
-			System.out.println("추가성공");
-		}else {
+		if(row != 1) {
 			System.out.println("추가실패");
+		}else {
+			System.out.println("추가성공");
 		}
 		
 		return row;
@@ -64,10 +64,10 @@ public class NoticeService {
 		}
 		
 		//삭제확인 디버깅
-		if(row == 1) {
-			System.out.println("삭제성공");
-		}else {
+		if(row != 1) {
 			System.out.println("삭제실패");
+		}else {
+			System.out.println("삭제성공");
 		}
 		
 		return row;
@@ -92,14 +92,14 @@ public class NoticeService {
 		
 		if(memberLevel == 1 && resultMember != null) {
 			// mapper 호출
-			noticeMapper.updateNotice(notice);
+			row = noticeMapper.updateNotice(notice);
 		}
 		
 		//삭제확인 디버깅
-		if(row == 1) {
-			System.out.println("수정성공");
-		}else {
+		if(row != 1) {
 			System.out.println("수정실패");
+		}else {
+			System.out.println("수정성공");
 		}
 		
 		return row;
