@@ -1,13 +1,17 @@
 package com.example.diary.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.diary.service.CommentService;
 import com.example.diary.service.NoticeService;
+import com.example.diary.vo.Comment;
 import com.example.diary.vo.Member;
 import com.example.diary.vo.Notice;
 
@@ -16,6 +20,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class NoticeController {
 	@Autowired private NoticeService noticeService;
+	@Autowired private CommentService commentService;
 	
 	//notice 상세보기 폼
 	@GetMapping("/notice/noticeOne")
@@ -24,17 +29,27 @@ public class NoticeController {
 		if(session.getAttribute("loginMember") == null) {
 			return "member/login";
 		}
+		
+		//loginMember memberId와 memberLevel 알아오기
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		int memberLevel = loginMember.getMemberLevel();
+		String loginMemberId = loginMember.getMemberId();
+	
 		//요청값 디버깅
 		System.out.println(paramNotice.getNoticeNo() + " <- 상세보기할 noticeNo");
 		
 		//서비스 요청
 		Notice noticeOne = noticeService.noticeOneService(paramNotice);
+		List<Comment> commentList = commentService.selectCommentList(session, paramNotice.getNoticeNo());
 		
 		//출력값 디버깅
 		System.out.println(noticeOne+ " <-상세보기 할 notice 객체");
 		
 		//view에 출력될 객체 model에 add
-		model.addAttribute("noticeOne",noticeOne);
+		model.addAttribute("noticeOne",noticeOne);	//notice 모델
+		model.addAttribute("commentList",commentList); // commentList 모델
+		model.addAttribute("memberLevel",memberLevel); 
+		model.addAttribute("loginMemberId",loginMemberId); 
 		
 		return "notice/noticeOne";
 	}
