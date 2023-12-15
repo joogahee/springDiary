@@ -46,4 +46,27 @@ public class CommentService {
 		return list;
 		
 	}
+	
+	//comment 추가
+	public int insertComment(HttpSession session, Comment comment) {
+		Member member = (Member)session.getAttribute("loginMember");
+		String memberId = member.getMemberId();
+		
+		comment.setMemberId(memberId);
+		
+		//디버깅 
+		System.out.println(comment + " <--추가될 comment 객체");
+		
+		//mampper 호출
+		int row = commentMapper.insertComment(comment);
+		
+		//추가확인 디버깅
+		if(row != 1) {
+			System.out.println("추가실패");
+		}else {
+			System.out.println("추가성공");
+		}
+		
+		return row;
+	}
 }

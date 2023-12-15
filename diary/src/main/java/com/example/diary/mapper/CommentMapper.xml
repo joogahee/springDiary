@@ -13,5 +13,19 @@
 		FROM comment
 		WHERE notice_no= #{noticeNo}
 	</select>
-
+	
+	<!-- comment 추가 -->
+	<insert id="insertComment" parameterType="com.example.diary.vo.Comment">
+		INSERT INTO comment(
+				notice_no,
+				member_id,
+				comment_content,
+				is_secret
+		)VALUES(
+				#{noticeNo},
+				#{memberId},
+				#{commentContent},
+				#{isSecret}
+		)
+	</insert>
 </mapper>

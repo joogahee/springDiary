@@ -51,31 +51,47 @@
 				</c:if>
 			</td>
 		</tr>
-<tr>
-    <th>내용</th>
-    <c:choose>
-        <c:when test="${comment.isSecret == 0}">
-            <td colspan="5">
-                <textarea rows="3" cols="50" name="commentContent" readonly="readonly">${comment.commentContent}</textarea>
-            </td>
-        </c:when>
-        <c:when test="${comment.isSecret == 1 and (memberLevel == 1 or comment.memberId == loginMemberId)}">
-            <td colspan="5">
-                <textarea rows="3" cols="50" name="commentContent" readonly="readonly">${comment.commentContent}</textarea>
-            </td>
-        </c:when>
-        <c:otherwise>
-            <td colspan="5">
-                <textarea rows="3" cols="50" name="commentContent" readonly="readonly">비밀글입니다</textarea>
-            </td>
-        </c:otherwise>
-    </c:choose>
-</tr>
+		<tr>
+    	<th>내용</th>
+    	<c:choose>
+        	<c:when test="${comment.isSecret == 0}">
+            	<td colspan="5">
+                	<textarea rows="3" cols="50" name="commentContent" readonly="readonly">${comment.commentContent}</textarea>
+            	</td>
+        	</c:when>
+        	<c:when test="${comment.isSecret == 1 and (memberLevel == 1 or comment.memberId == loginMemberId)}">
+            	<td colspan="5">
+                	<textarea rows="3" cols="50" name="commentContent" readonly="readonly">${comment.commentContent}</textarea>
+            	</td>
+        	</c:when>
+        	<c:otherwise>
+            	<td colspan="5">
+                	<textarea rows="3" cols="50" name="commentContent" readonly="readonly">비밀글입니다</textarea>
+            	</td>
+        	</c:otherwise>
+    	</c:choose>
+		</tr>
 		<tr>
 			<th>작성일</th>
 			<td colspan="5">${comment.createdate }</td>
 		</tr>
 		</c:forEach>
 	</table>
+	<!-- 댓글 작성 폼 -->
+	<h2>댓글 작성</h2>
+	<form method="post" action="${pageContext.servletContext.contextPath}/comment/insertComment">
+		<input type="hidden" name="noticeNo" value="${noticeOne.noticeNo}">
+		<table border="1">
+			<tr>
+				<th>비밀글</th>
+				<td><input type="checkbox" name="isSecret" value="1"></td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td><textarea rows="3" cols="50" name="commentContent"></textarea></td>
+			</tr>
+		</table>
+		<button type="submit">등록</button>
+	</form>
 </body>
 </html>
