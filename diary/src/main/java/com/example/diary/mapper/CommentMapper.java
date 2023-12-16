@@ -24,4 +24,7 @@ public interface CommentMapper {
 	
 	//추가, 삭제를 위해 comment 출력
 	Comment selectCommentOne(int commentNo);
+	
+	//notice 삭제시 하위 comment 삭제
+	int deleteByNotice(int noticeNo);
 }

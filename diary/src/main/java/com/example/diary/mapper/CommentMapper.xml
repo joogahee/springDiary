@@ -56,4 +56,12 @@
 		WHERE comment_no = #{commentNo}
 	</update>
 	
+	<!-- notice삭제시 하위 comment삭제 -->
+	<delete id="deleteByNotice" parameterType="int">
+		DELETE 
+		FROM comment
+		WHERE notice_no = #{noticeNo}
+		
+	</delete>
+	
 </mapper>

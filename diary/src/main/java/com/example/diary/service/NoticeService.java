@@ -2,8 +2,9 @@ package com.example.diary.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.example.diary.mapper.CommentMapper;
 import com.example.diary.mapper.MemberMapper;
 import com.example.diary.mapper.NoticeMapper;
 import com.example.diary.vo.Member;
@@ -11,10 +12,12 @@ import com.example.diary.vo.Notice;
 
 import jakarta.servlet.http.HttpSession;
 
+@Transactional
 @Service
 public class NoticeService {
 	@Autowired private NoticeMapper noticeMapper;
 	@Autowired private MemberMapper memberMapper;
+	@Autowired private CommentMapper commentMapper;
 	
 	//notice 상세보기
 	public Notice noticeOneService(Notice paramNotice) {
@@ -57,6 +60,13 @@ public class NoticeService {
 		loginMember.setMemberPw(memberPw);
 		Member resultMember = memberMapper.login(loginMember);
 		System.out.println(resultMember + " <- 현재 삭제를 시도하는 member");
+		
+		//notice 삭제 전 comment 삭제 트렌잭션 처리
+		int row2 = commentMapper.deleteByNotice(deleteNotice.getNoticeNo());
+		//comment가 삭제 실패하면 트랜잭션
+		if(row2 != 1) {
+			throw new NullPointerException("notice하위의 comment삭제를 실패했습니다.");
+		}
 		
 		if(memberLevel == 1 && resultMember != null) {
 			// mapper 호출
