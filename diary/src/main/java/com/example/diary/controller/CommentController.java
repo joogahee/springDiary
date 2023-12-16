@@ -97,4 +97,39 @@ public class CommentController {
 		//리다이렉트
 		return "redirect:/notice/noticeOne?noticeNo="+noticeNo;
 	}
+	
+	//comment 수정(폼)
+	@GetMapping("comment/updateComment")
+	public String updateComment(Model model, HttpSession session,
+									@RequestParam int commentNo) {
+		//로그인 후에만 접속가능
+		if(session.getAttribute("loginMember") == null) {
+			return "member/login";
+		}
+		
+		//요청값 디버깅
+		System.out.println(commentNo + "수정할 commentNo");
+		
+		//service 요청
+		Comment comment = commentService.commentOne(session, commentNo);
+		
+		//view에 출력될 객체 model에 add
+		model.addAttribute("comment", comment);
+		
+		return "comment/updateComment";
+	}
+	
+	//comment수정(액션)
+	@PostMapping("comment/updateComment")
+	public String updateComment(HttpSession session,
+									@RequestParam int commentNo,
+									@RequestParam String memberPw,
+									@RequestParam int noticeNo,
+									@RequestParam String commentContent) {
+		//service 호출
+		commentService.updateComment(session, commentNo, memberPw, commentContent);
+		
+		//리다이렉트
+		return "redirect:/notice/noticeOne?noticeNo="+noticeNo;
+	}
 }

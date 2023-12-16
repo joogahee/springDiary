@@ -11,18 +11,18 @@
 	<div id="menu">
     	<c:import url="/WEB-INF/view/inc/menu.jsp" />
 	</div>
-	<h1>댓글 삭제</h1>
-	<p>삭제하려면 비밀번호를 입력하세요.</p>
-	<form method="post" action="${pageContext.servletContext.contextPath}/comment/deleteComment">
+	<h1>댓글 수정</h1>
+	<p>수정하려면 비밀번호를 입력하세요.</p>
+	<form method="post" action="${pageContext.servletContext.contextPath}/comment/updateComment">
 		<input type="hidden" name="noticeNo" value="${comment.noticeNo}">
 		<table border="1">
 			<tr>
-				<th>삭제할 댓글</th>
+				<th>수정할 댓글</th>
 				<td><input type="text" name="commentNo" value="${comment.commentNo }"></td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea rows="3" cols="50" name="commentContent" readonly="readonly">${comment.commentContent}</textarea></td>
+				<td><textarea rows="3" cols="50" name="commentContent">${comment.commentContent}</textarea></td>
 			</tr>
 			<tr>
 				<th>작성일</th>
@@ -43,7 +43,7 @@
 				<td><input type="password" name="memberPw" class="memberPw"></td>
 			</tr>
 		</table>
-		<button type="submit">삭제</button>
+		<button type="submit">수정</button>
 	</form>
 </body>
 </html>

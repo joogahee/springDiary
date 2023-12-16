@@ -49,4 +49,11 @@
 		WHERE comment_no= #{commentNo}
 	</select>
 	
+	<!-- comment 수정 -->
+	<update id="updateComment" parameterType="com.example.diary.vo.Comment">
+		UPDATE comment SET
+			comment_content = #{commentContent}
+		WHERE comment_no = #{commentNo}
+	</update>
+	
 </mapper>

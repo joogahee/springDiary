@@ -112,4 +112,41 @@ public class CommentService {
 		}
 		return row;
 	}
+	
+	//comment 수정
+	public int updateComment(HttpSession session, int commentNo, String memberPw, String commentContent) {
+
+		Member loginmember = (Member)session.getAttribute("loginMember");
+		String memberId = loginmember.getMemberId();
+		
+		Member paramMember = new Member();
+		paramMember.setMemberId(memberId);
+		paramMember.setMemberPw(memberPw);
+		
+		//member Mapper호출
+		Member resultMember = memberMapper.login(paramMember);
+		
+		//비밀번호 체크
+		if(resultMember == null) {
+			 // resultMember가 null인 경우 예외 발생 
+		    throw new NullPointerException("비밀번호가 틀렸습니다.");
+		}
+		
+		//mapper에 보내줄 Comment객체 세팅
+		Comment paramComment = new Comment();
+		paramComment.setCommentContent(commentContent);
+		paramComment.setCommentNo(commentNo);
+		
+		//mapper호출
+		int row = commentMapper.updateComment(paramComment);
+		
+		//수정확인 디버깅
+		if(row != 1) {
+			System.out.println("수정실패");
+		}else {
+			System.out.println("수정성공");
+		}
+
+		return row;
+	}
 }

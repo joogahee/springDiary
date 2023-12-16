@@ -78,6 +78,7 @@
 			<c:if test="${comment.memberId == loginMemberId}">
 			<tr>
 				<td><a href="${pageContext.servletContext.contextPath}/comment/deleteComment?commentNo=${comment.commentNo}">삭제</a></td> 
+				<td><a href="${pageContext.servletContext.contextPath}/comment/updateComment?commentNo=${comment.commentNo}">수정</a></td> 
 			</tr>
 			</c:if>
 		</c:forEach>
