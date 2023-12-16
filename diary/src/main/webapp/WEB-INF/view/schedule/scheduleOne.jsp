@@ -14,12 +14,7 @@
 	<div>
 		<h2>${year}년 ${month}월 ${day}일</h2>
 	</div>
-	<div>
-		<p>일정 검색
-		<a href="${pageContext.request.contextPath}/schedule/scheduleByDate?year=${year}&month=${month}&day=${day}">날짜</a>
-		<a href="${pageContext.request.contextPath}/schedule/word">단어</a>	
-		</p>	
-	</div>
+
 	<div>
 		<table border="1">
 			<tr>

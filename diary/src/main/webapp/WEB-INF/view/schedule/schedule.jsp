@@ -20,11 +20,17 @@
 			<input type="text" name="word"> 
 			<button type="submit">검색</button>
 		</form>
+		<form action="${pageContext.servletContext.contextPath}/schedule/word" method="get">
+			<input type="hidden" name="word" value=""> 
+			<button type="submit">전체보기</button>
+		</form>
 	</div>
 	<table border="1">
 		<tr>
-			<th>no</th>
-			<th>memo</th>
+			<th>번호</th>
+			<th>일정</th>
+			<th>날짜</th>
+			<th>이모티콘</th>
 		</tr>
 		<c:forEach var="s" items="${list}">
 			<tr>

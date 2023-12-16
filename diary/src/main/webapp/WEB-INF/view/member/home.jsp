@@ -49,8 +49,14 @@
 		</c:forEach>
 		<a href="${pageContext.request.contextPath}/member/home?currentPage=${noticeMap.lastPage}">마지막</a>
     </div>
+    <!-- 검색 -->
+    <div>
+		<p>일정 검색
+		<a href="${pageContext.request.contextPath}/schedule/scheduleByDate?year=${year}&month=${month}&day=${day}">날짜</a>
+		<a href="${pageContext.request.contextPath}/schedule/word">단어</a>	
+		</p>	
+	</div>
     <!-- 캘린더 -->
-
     <div>
     	<h2>
     		${calendarMap.targetYear}년

@@ -70,6 +70,9 @@ public class ScheduleService {
 		maxMinMap.put("minYear", minYear);
 		maxMinMap.put("maxYear", maxYear);
 		
+		// 페이징에 필요한 변수
+		int rowPerPage = 10; //한페이지에 표시할 공지사항 수 
+		int beginRow = ((int)(currentPage - 1) * rowPerPage);
 		
 		// 스케줄 리스트
 		Map<String, Object> paramMap = new HashMap<>();
@@ -93,9 +96,19 @@ public class ScheduleService {
 		
 		paramMap.put("maxMinMap", maxMinMap);
 		
-		// 페이징에 필요한 변수
-		int rowPerPage = 10; //한페이지에 표시할 공지사항 수 
-		int beginRow = (currentPage - 1) * rowPerPage;
+		//last페이지 알아오기
+		String scheduelDate= year +"-"+ month +"-"+day;
+		int scheduleCount = scheduleMapper.selectScheduleListByDateCnt(scheduelDate);
+		int lastPage = scheduleCount/rowPerPage;
+		
+		if(scheduleCount%rowPerPage != 0) {
+			lastPage = lastPage + 1;
+		}
+		
+		//디버깅
+		System.out.println(lastPage + " <--lastPage");
+		System.out.println(scheduleCount + " <--scheduleCount");
+		
 		paramMap.put("rowPerPage", rowPerPage);
 		paramMap.put("beginRow", beginRow);
 		
@@ -106,6 +119,8 @@ public class ScheduleService {
 		resultMap.put("maxMinMap", maxMinMap); // 년도 최소, 최대값
 		resultMap.put("list", list); // 조건결과 리스트
 		resultMap.put("rowPerPage", rowPerPage); // 조건결과 리스트
+		resultMap.put("lastPage", lastPage);
+		
 		return resultMap;
 	}
 	

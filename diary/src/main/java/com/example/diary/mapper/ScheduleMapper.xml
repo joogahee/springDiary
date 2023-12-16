@@ -127,4 +127,11 @@
 		FROM schedule
 		WHERE schedule_no = #{scheduleNo}
 	</select>
+	
+	<select id="selectScheduleListByDateCnt" parameterType="String">
+		SELECT
+			COUNT(schedule_no)
+		FROM schedule
+		WHERE schedule_date = #{scheduleDate}
+	</select>
 </mapper>

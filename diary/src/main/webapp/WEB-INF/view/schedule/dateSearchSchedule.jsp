@@ -95,14 +95,13 @@
 </c:if>
 
 <!-- 페이징 -->
-<div>
-    <c:if test="${currentPage > 1}">
-        <a href="${pageContext.request.contextPath}/schedule/scheduleByDate?year=${year}&month=${month}&day=${day}&currentPage=${currentPage - 1}">이전</a>
-    </c:if>
-
-        <a href="${pageContext.request.contextPath}/schedule/scheduleByDate?year=${year}&month=${month}&day=${day}&currentPage=${currentPage + 1}">다음</a>
-
-</div>
+	<div>
+		<a href="${pageContext.request.contextPath}/schedule/scheduleByDate?year=${year}&month=${month}&day=${day}&currentPage=1">처음</a>
+			<c:forEach var="c" begin="1" end="${map.lastPage}">
+    			<a href="${pageContext.request.contextPath}/schedule/scheduleByDate?year=${year}&month=${month}&day=${day}">${c}</a>
+			</c:forEach>
+		<a href="${pageContext.request.contextPath}/schedule/scheduleByDate?year=${year}&month=${month}&day=${day}&currentPage=${map.lastPage}">마지막</a>
+    </div>
 
 </body>
 </html>
