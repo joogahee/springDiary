@@ -20,5 +20,8 @@ public interface CommentMapper {
 	int updateComment(Comment comment);
 	
 	//comment 삭제
-	int deleteComment(Comment comment);
+	int deleteComment(int commentNo);
+	
+	//추가, 삭제를 위해 comment 출력
+	Comment selectCommentOne(int commentNo);
 }

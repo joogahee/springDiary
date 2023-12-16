@@ -75,6 +75,11 @@
 			<th>작성일</th>
 			<td colspan="5">${comment.createdate }</td>
 		</tr>
+			<c:if test="${comment.memberId == loginMemberId}">
+			<tr>
+				<td><a href="${pageContext.servletContext.contextPath}/comment/deleteComment?commentNo=${comment.commentNo}">삭제</a></td> 
+			</tr>
+			</c:if>
 		</c:forEach>
 	</table>
 	<!-- 댓글 작성 폼 -->

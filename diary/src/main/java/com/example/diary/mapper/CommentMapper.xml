@@ -28,4 +28,25 @@
 				#{isSecret}
 		)
 	</insert>
+	
+	<!-- comment 삭제 -->
+	<delete id="deleteComment" parameterType="int">
+		DELETE 
+		FROM comment
+		WHERE comment_no = #{commentNo}
+	</delete>
+	
+	<!-- commentOne 출력 -->
+	<select id="selectCommentOne" parameterType="int">
+		SELECT 
+			comment_no commentNo,
+			notice_no noticeNo,
+			member_id memberId,
+			is_secret isSecret,
+			comment_content commentContent,
+			createdate createdate
+		FROM comment
+		WHERE comment_no= #{commentNo}
+	</select>
+	
 </mapper>
