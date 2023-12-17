@@ -23,7 +23,7 @@ public class HomeService {
 	public Map<String, Object>  homeService(Map<String, Object> map, HttpSession session) {
 		
 		// 페이징에 필요한 변수
-		int rowPerPage = 2; //한페이지에 표시할 공지사항 수 
+		int rowPerPage = 5; //한페이지에 표시할 공지사항 수 
 		int beginRow = ((int)(map.get("currentPage")) - 1) * rowPerPage;
 		int noticeCount = homeMapper.selectTotalNotice();
 		int lastPage = noticeCount/rowPerPage;
