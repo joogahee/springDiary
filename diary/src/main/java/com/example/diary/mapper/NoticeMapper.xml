@@ -49,5 +49,13 @@
 				WHERE
 					notice_no = #{noticeNo}
 	</update>
+	
+	<select id="deleteNoticeCountComment"
+					parameterType="int">
+				select
+					COUNT(comment_no)
+				FROM comment
+				WHERE notice_no = #{noticeNo}
+	</select>
 
 </mapper>

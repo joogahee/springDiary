@@ -13,5 +13,7 @@ public interface NoticeMapper {
 	// 삭제
 	int deleteNotice(Notice notice);
 	// 수정
-	int updateNotice(Notice notice);	
+	int updateNotice(Notice notice);
+	// notice 삭제시 comment 유무 확인
+	int deleteNoticeCountComment(int noticeNo);
 }

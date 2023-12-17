@@ -61,12 +61,18 @@ public class NoticeService {
 		Member resultMember = memberMapper.login(loginMember);
 		System.out.println(resultMember + " <- 현재 삭제를 시도하는 member");
 		
-		//notice 삭제 전 comment 삭제 트렌잭션 처리
-		int row2 = commentMapper.deleteByNotice(deleteNotice.getNoticeNo());
-		//comment가 삭제 실패하면 트랜잭션
-		if(row2 != 1) {
-			throw new NullPointerException("notice하위의 comment삭제를 실패했습니다.");
+		//notice에 comment가 있는 경우에만
+		int countComment = noticeMapper.deleteNoticeCountComment(deleteNotice.getNoticeNo());
+		if(countComment > 0) {
+			//notice 삭제 전 comment 삭제 트렌잭션 처리
+			int row2 = commentMapper.deleteByNotice(deleteNotice.getNoticeNo());
+			//comment가 삭제 실패하면 트랜잭션
+			if(row2 != 1) {
+				throw new NullPointerException("notice하위의 comment삭제를 실패했습니다.");
+			}
 		}
+		//countComment디버깅
+		System.out.println(countComment + " <-- 댓글 수");
 		
 		if(memberLevel == 1 && resultMember != null) {
 			// mapper 호출
