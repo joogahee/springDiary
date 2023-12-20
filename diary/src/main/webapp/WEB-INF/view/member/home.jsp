@@ -44,7 +44,7 @@
 		</div>
 		<br>
 		<div class="mx-4">
-		<h2>공지사항</h2>
+		<h2>&#128196; 공지사항</h2>
 			<div>
 				<p class="small"> &#128269; 공지를 자세히 보려면 제목을 클릭하세요</p>
 			</div>
@@ -104,17 +104,17 @@
 		<br>
 		</h4>	
 		<a class="text-dark" href="${pageContext.request.contextPath}/schedule/scheduleByDate?year=${year}&month=${month}&day=${day}">날짜로 검색하기 &#128284;</a>
-		<a class="text-dark" href="${pageContext.request.contextPath}/schedule/word">단어로 검색하기 &#128284;</a>	
+		<a class="text-dark" href="${pageContext.request.contextPath}/schedule/scheduleByWord">단어로 검색하기 &#128284;</a>	
 	</div>
 	<br>
     <!-- 캘린더 -->
     <div class="container mt-4">
     	<div class="row justify-content-center">
     		<h2>
-    			<a class="text-dark" href="${pageContext.servletContext.contextPath}/member/home?targetMonth=${calendarMap.targetMonth-1}&targetYear=${calendarMap.targetYear}">&#11013;</a>
+    			<a class="text-dark" href="${pageContext.servletContext.contextPath}/member/home?targetMonth=${calendarMap.targetMonth-1}&targetYear=${calendarMap.targetYear}">&#9664;</a>
     				${calendarMap.targetYear}년
     				${calendarMap.targetMonth+1}월 일정
-    			<a class="text-dark" href="${pageContext.servletContext.contextPath}/member/home?targetMonth=${calendarMap.targetMonth+1}&targetYear=${calendarMap.targetYear}">&#10145;</a>
+    			<a class="text-dark" href="${pageContext.servletContext.contextPath}/member/home?targetMonth=${calendarMap.targetMonth+1}&targetYear=${calendarMap.targetYear}">&#9654;</a>
     		</h2>
     	</div>
     	<div>

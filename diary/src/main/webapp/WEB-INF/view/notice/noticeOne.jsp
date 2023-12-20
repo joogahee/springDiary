@@ -24,7 +24,7 @@
 		</div>
 		<br>
 		<div class="mx-4">
-		<h3 class="font-weight-bold p-2">공지사항</h3>
+		<h3 class="font-weight-bold p-2">&#128196; 공지사항</h3>
 		<br>
 	<table class="table table-bordered">
 		<tr>
@@ -37,7 +37,7 @@
 		</tr>
 		<tr>
 			<th class="bg-dark text-white">내용</th>
-				<td class="bg-white"><textarea rows="3" cols="50" name="noticeContent" readonly="readonly">${noticeOne.noticeContent}</textarea></td>
+				<td class="bg-white"><textarea rows="3" cols="100" name="noticeContent" readonly="readonly">${noticeOne.noticeContent}</textarea></td>
 		</tr>
 		<tr>
 			<th class="bg-dark text-white">작성일</th>
@@ -52,7 +52,7 @@
 		</c:if>
 	</div>
 	<!-- comment 출력 -->
-	<h3 class="font-weight-bold p-2">댓글</h3>
+	<h3 class="font-weight-bold p-2">&#128221; 댓글</h3>
 	<br>
 	<c:forEach var="comment" items="${commentList}">
 		<table class="table table-bordered table-sm">
@@ -81,7 +81,7 @@
     				<c:choose>
         				<c:when test="${comment.isSecret == 0}">
             				<td colspan="5">
-                				<textarea rows="3" cols="50" name="commentContent" readonly="readonly">${comment.commentContent}</textarea>
+                				<textarea rows="3" cols="100" name="commentContent" readonly="readonly">${comment.commentContent}</textarea>
             				</td>
         				</c:when>
         				<c:when test="${comment.isSecret == 1 and (memberLevel == 1 or comment.memberId == loginMemberId)}">

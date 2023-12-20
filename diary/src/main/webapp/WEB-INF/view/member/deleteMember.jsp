@@ -31,7 +31,7 @@
         <div class="row justify-content-center">
             <div class="card p-4 border rounded col-md-4">
                 <div class="col-md-12"> 
-					<h2>회원탈퇴</h2>
+					<h2>&#128683;회원탈퇴</h2>
 					<form method="post" action="${pageContext.servletContext.contextPath}/member/deleteMember">
                         <div class="mb-3 mt-3">
                             <label for="memberId" class="form-label">아이디</label>

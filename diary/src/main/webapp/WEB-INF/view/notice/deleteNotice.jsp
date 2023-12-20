@@ -24,7 +24,7 @@
 		</div>
 		<br>
 		<div class="mx-4">
-		<h2>공지 삭제</h2>
+		<h2>&#128465;공지 삭제</h2>
 			<p>&#10004; 삭제하려면 비밀번호를 입력하세요.</p>
 			<form method="post" action="${pageContext.servletContext.contextPath}/notice/deleteNotice">
 			    <input type="hidden" name="noticeNo" value="${deleteNotice.noticeNo}">

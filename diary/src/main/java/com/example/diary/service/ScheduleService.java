@@ -39,6 +39,7 @@ public class ScheduleService {
 		List<Map<String,Object>> resultList = new ArrayList<>();
 		resultList = scheduleMapper.selectScheduleListByWord(map);
 		
+		//lastPage
 		int scheduleCount = scheduleMapper.selectScheduleListByWordCnt(map);
 		int lastPage = scheduleCount/rowPerPage;
 		

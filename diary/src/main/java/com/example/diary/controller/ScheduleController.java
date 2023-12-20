@@ -47,7 +47,7 @@ public class ScheduleController {
 	}
 	
 	//단어로 schedule검색
-	@GetMapping("/schedule/word")
+	@GetMapping("/schedule/scheduleByWord")
 	public String scheduleListByWord(Model model, HttpSession session,
 										@RequestParam(defaultValue = "1") int currentPage,
 										@RequestParam(name="word", defaultValue = "") String word) {
@@ -66,7 +66,7 @@ public class ScheduleController {
 		model.addAttribute("list",resultList);
 		model.addAttribute("word",word);
 		
-		return "schedule/schedule";
+		return "schedule/wordSearchSchedule";
 	}
 	
 	//schedulOne 출력

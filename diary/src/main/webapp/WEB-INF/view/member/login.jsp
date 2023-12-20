@@ -32,7 +32,7 @@
         <div class="row justify-content-center">
             <div class="card p-4 border rounded col-md-4">
                 <div class="col-md-12">
-                    <h2>로그인</h2>
+                    <h2>&#128204;로그인</h2>
                     <form action="${pageContext.servletContext.contextPath}/member/login" method="post">
                         <div class="mb-3 mt-3">
                             <label for="memberId" class="form-label">아이디</label>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>비밀번호 변경</title>
+<title> 비밀번호 변경</title>
 <!-- jQuery css -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!-- jQuery CDN 주소 -->
@@ -31,7 +31,7 @@
         <div class="row justify-content-center">
             <div class="card p-4 border rounded col-md-4">
                 <div class="col-md-12">
-					<h2>비밀번호 변경</h2>
+					<h2>&#128397;비밀번호 변경</h2>
 					<form method="post" action="${pageContext.servletContext.contextPath}/member/updateMember">
                        <div class="mb-3 mt-3">
                             <label for="memberId" class="form-label">아이디</label>

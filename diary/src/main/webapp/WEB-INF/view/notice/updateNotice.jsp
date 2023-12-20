@@ -22,7 +22,7 @@
     		<c:import url="/WEB-INF/view/inc/menu.jsp" />
 		</div>
 		<br>
-		<h2> 공지수정 </h2>
+		<h2>&#128396; 공지수정 </h2>
 			<p>&#10004; 수정하려면 비밀번호를 입력하세요.</p>
 		   	<form method="post" action="${pageContext.servletContext.contextPath}/notice/updateNotice" class="updateNotice">
 				<div class="form-group">
